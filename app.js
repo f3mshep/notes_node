@@ -8,10 +8,16 @@ const yargs = require('yargs');
 
 const argv = yargs.argv;
 let command = argv._[0];
-
+let note
 
 if (command === 'add'){
-  notes.addNote(argv.title, argv.body);
+  note = notes.addNote(argv.title, argv.body);
+  if (note){
+    console.log("Note successfully added.")
+  }
+  else{
+    console.log("Error: Duplicate note added.")
+  }
 }
 else if (command === 'list'){
   notes.getAll()
