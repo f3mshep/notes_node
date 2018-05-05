@@ -2,19 +2,26 @@ console.log('Starting app.js');
 
 const fs = require('fs');
 const notes = require('./notes.js');
-const os = require('os');
+
 const _ = require('lodash');
-let user = os.userInfo();
+const yargs = require('yargs');
 
-let res = notes.addNote();
-
-let adder = notes.add;
-console.log(adder(3,5));
+const argv = yargs.argv;
+let command = argv._[0];
 
 
-// fs.appendFile("greetings.txt", `Hello, ${user.username}! You are ${notes.age}.`, err => {
-//   if (err) {
-//     console.log("unable to write to file!");
-//   }
-// });
-
+if (command === 'add'){
+  notes.addNote(argv.title, argv.body);
+}
+else if (command === 'list'){
+  notes.getAll()
+}
+else if (command === 'read'){
+  notes.readNote(argv.title)
+}
+else if (command == 'remove'){
+  notes.removeNote(argv.title)
+}
+else{
+  console.log('U wot m8');
+}
